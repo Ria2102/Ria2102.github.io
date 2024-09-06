@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>BPDC Profile Page</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Raleway"
+    />
+    <style>
+      body,
+      h1, h2{
+        font-family: "Raleway", sans-serif;;
+      }
+      h3 {
+        font-family: "Raleway", sans-serif;
+        font-size: 40px;
+      }
+      body,
+      html {
+        height: 100%; /* Ensure the gradient covers the full page height */
+        margin: 0;
+        padding: 0;
+        background: rgb(218, 150, 150);;
+      }
+
+      p {
+        line-height: 2;
+      }
+      .w3-row img {margin-bottom: -8px}
+      /* Custom cursor styling */
+      .cursor {
+        width: 30px;
+        height: 30px;
+        border: 1px solid rgb(207, 234, 213);
+        border-radius: 50%;
+        position: absolute;
+        transition-duration: 200ms;
+        transition-timing-function: ease-out;
+        animation: cursorAnim 0.5s infinite alternate;
+        pointer-events: none;
+        z-index: 1000; /* Ensure it stays above the page content */
+      }
+
+      .cursor::after {
+        content: "";
+        width: 30px;
+        height: 30px;
+        position: absolute;
+        border: 8px solid rgb(17, 224, 124);
+        border-radius: 50%;
+        opacity: 0.5;
+        top: -8px;
+        left: -8px;
+        animation: cursorAnim2 0.5s infinite alternate;
+      }
+
+      @keyframes cursorAnim {
+        from {
+          transform: scale(1);
+        }
+        to {
+          transform: scale(0.7);
+        }
+      }
+
+      @keyframes cursorAnim2 {
+        from {
+          transform: scale(1);
+        }
+        to {
+          transform: scale(0.4);
+        }
+      }
+
+      @keyframes cursorAnim3 {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(3);
+        }
+        100% {
+          transform: scale(1);
+          opacity: 0;
+        }
+      }
+
+      .expand {
+        animation: cursorAnim3 0.5s forwards;
+        border: 1px solid rgb(4, 46, 12);
+      }
+
+      /* Background image settings */
+      .bgimg,
+      .bgimg2,
+      .bgimg3 {
+        min-height: 100%;
+        background-position: center;
+        background-size: cover;
+        
+      }
+
+      .bgimg {
+        background-image: url("Photos/Landing Page - 1.jpeg");
+      }
+
+      .bgimg2 {
+        background-image: url("Photos/Butter.jpeg");
+      }
+
+      .bgimg3 {
+        background-image: url("Photos/Lorry.jpeg");
+        height: 100px;
+      }
+      audio {
+        display: none; /* Hides the audio player from view */
+      }
+      #fadeInHeading {
+        opacity: 0;
+        transition: opacity 2s ease-in; /* Fade-in effect over 2 seconds */
+      }
+      /* Flexbox layout for container */
+      .container {
+        display: flex;
+        justify-content: space-between; /* Space between columns */
+        gap: 20px; /* Optional: Adjust gap between images */
+        padding: 20px;
+      }
+
+      /* Each column to hold one image */
+      .column {
+        flex: 1; /* Distribute columns evenly */
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* Make the images responsive and cover the entire column */
+      .column img {
+        width: 100%;
+        height: auto;
+        object-fit: cover; /* Ensures the image covers the column */
+      }
+
+      /* Overlay for middle column */
+      .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5); /* Dark overlay */
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+      @keyframes typing {
+        from { width: 0; }
+        to { width: 100%; }
+      }
+      
+      @keyframes blink-caret {
+        from, to { border-color: transparent; }
+        50% { border-color: black; }
+      }
+      
+      .typewriter {
+        font-family: monospace; /* Optional: give it a typewriter feel */
+        display: inline-block;
+        overflow: hidden; /* Ensures the text stays inside the element */
+        border-right: 3px solid black; /* Simulates the cursor */
+        white-space: nowrap; /* Prevents the text from wrapping to the next line */
+        width: 0; /* Initially, the width is 0 (hidden) */
+        animation: typing 3s steps(10, end) forwards, blink-caret 0.75s step-end infinite;
+        /* Adjust `3s` to control typing speed and `steps(22, end)` where `22` matches the character count */
+      }
+      /* Style for the overlay heading */
+      .overlay h1 {
+        font-size: 2em;
+        margin-bottom: 20px;
+      }
+
+      /* Style for links under images */
+      .link {
+        position: absolute;
+        bottom: 10px;
+        left: 20px;
+        text-decoration: none;
+        color: white;
+        background-color: rgba(0, 0, 0, 0.7);
+        padding: 10px 20px;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+      }
+
+      .link:hover {
+        background-color: rgba(255, 255, 255, 0.3);
+      }
+      .bg-video-container {
+        position: relative;
+        height: 100vh; /* Full viewport height */
+        width: 100%;
+        overflow: hidden;
+      }
+
+      .bg-video {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        min-width: 100%;
+        min-height: 100%;
+        transform: translate(-50%, -50%);
+        object-fit: cover; /* Ensures the video covers the entire container */
+        z-index: -1; /* Sends the video behind any other content */
+      }
+      /* Sidebar styling */
+      #sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 250px;
+        height: 100%;
+        background-color: #333;
+        padding-top: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: white;
+        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+        transform: translateX(-250px); /* Initially hide sidebar */
+        transition: transform 0.3s ease; /* Smooth transition */
+        z-index: 1000; /* Higher z-index to ensure it's on top */
+      }
+      /* When sidebar is active (shown) */
+      #sidebar.active {
+        transform: translateX(0); /* Slide in the sidebar */
+      }
+
+      /* Toggle button (paw symbol) */
+      #toggleButton {
+        position: fixed;
+        top: 50%;
+        left: 20px;
+        z-index: 1001; /* Keep the button above the sidebar */
+        background-color: #333;
+        color: white;
+        border: none;
+        font-size: 2rem; /* Size of the paw symbol */
+        cursor: pointer;
+        padding: 10px;
+        border-radius: 50%; /* Makes the button circular */
+        text-align: center;
+      }
+
+      /* Paw symbol styling */
+      .paw-symbol {
+        font-size: 3rem;
+        margin-bottom: 20px;
+      }
+      .photo {
+        width: 100%;
+        height: auto; /* Maintain aspect ratio */
+        margin-bottom: 10px; /* Space between images */
+      }
+
+      /* Sidebar menu */
+      #sidebar ul {
+        list-style-type: none;
+        padding: 0;
+        width: 100%;
+      }
+
+      #sidebar ul li {
+        margin: 20px 0;
+        text-align: center;
+      }
+
+      #sidebar ul li a {
+        color: white;
+        text-decoration: none;
+        font-size: 1.2rem;
+        display: block;
+        padding: 10px;
+        transition: background-color 0.3s ease;
+      }
+
+      #sidebar ul li a:hover {
+        background-color: #555;
+      }
+
+      /* Animation keyframes for zoom-in and move-down effect */
+      @keyframes zoomIn {
+        from {
+          transform: scale(0.8) translateY(-50px);
+          opacity: 0;
+        }
+        to {
+          transform: scale(1) translateY(0);
+          opacity: 1;
+        }
+      }
+
+      /* Initial state of the elements (hidden by default) */
+      .animate-text {
+        opacity: 0;
+        transform: scale(0.8) translateY(-50px);
+        transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+      }
+
+      /* Class to be added when the element is in view */
+      .animate-text.show {
+        opacity: 1;
+        animation: zoomIn 1s forwards;
+      }
+
+    </style>
+  </head>
+  <body>
+    
+    <!-- Header / Home-->
+    <header class="w3-display-container w3-wide bgimg" id="home">
+        <div class="w3-display-middle w3-text-white w3-center">
+          <h1 class="w3-jumbo animate-text">INNOVATE</h1>
+          <h2 class="animate-text">ACHIEVE</h2>
+          <h2 class="animate-text"><b>LEAD</b></h2>
+        </div>
+      </header>
+    <!-- Custom cursor -->
+    <div class="cursor" id="cursor"></div>
+    <!-- Sidebar -->
+    <button id="toggleButton">🐾</button>
+<!-- AUDIO FILE -->
+<audio id="backgroundAudio" autoplay loop>
+  <source src="Photos\forest_sounds.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+    <!-- Sidebar -->
+    <div id="sidebar">
+      <div class="paw-symbol">🐾</div>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#stranger-things">StudentLife</a></li>
+        <li><a href="#cat-section">BPDC Wildlife</a></li>
+      </ul>
+    </div>
+
+        <!-- About BPDC and NATURE -->
+        <div class="w3-container w3-padding-64 w3-pale-red w3-grayscale-min" id="home">
+          <div class="w3-content">
+            <h1 id="fadeInHeading" class="w3-center w3-text-grey">
+              <div id = "about">
+              <b>BPDC: Empowering Minds with Nature's Wisdom</b>
+            
+            </h1>
+            <p class="w3-center" style="font-size: 1.2rem;">
+              
+            <i
+              >BPDC's campus is a testament to the synergy between education and nature. We embrace green practices and environmental consciousness, ensuring that our students grow in an eco-friendly, inspiring environment. Scroll down and revitalize with the beauty of </i> <a href = "https://www.instagram.com/mtcbpdc/">Nature@BPDC</a><i>🍃</i>
+          
+          </p>
+        </div>
+          <br />
+        </div>
+      </div>
+
+    <!-- Background photo -->
+    <div class="container">
+      <!-- First Column -->
+      <div class="column">
+        <img src="Photos/Butter.jpeg" alt="1" />
+        <a href="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExbXM1ZXgwbWxtOG5mcGh5amZqcmN4eXR1dHcwZHhleWkzMHBiYThmOSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/N1DlKzpUcCy1xMVO5D/giphy.gif" class="link">Little Joys 🦋</a>
+      </div>
+
+      <!-- Second Column with Overlay -->
+      <div class="column">
+        <img src="Photos/flower.jpeg" alt="2" />
+        <div class="overlay">
+          <h3 id="typewriterText" class="typewriter"></h3>
+
+        </div>
+        <a href="https://tenor.com/bP01n.gif" class="link"
+          >Flower Power! 🌸</a
+        >
+      </div>
+
+      <!-- Third Column -->
+      <div class="column">
+        <img src="Photos/sun-kissed.jpeg" alt="Places to visit" />
+        <a href="https://youtu.be/smQ57m7mjSU" class="link">The Light on the other side! 💡</a>
+      </div>
+    </div>
+    <!-- Flower Video -->
+    <div class="w3-display-container bg-video-container" id="wedding">
+      <video autoplay muted loop class="bg-video">
+        <source src="Photos\flowervid.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+    </div>
+    <div id="lorry-section"></div>
+<!-- Header -->
+<header class="w3-container w3-xlarge w3-padding-24" style="text-align: center;">
+    <h2 style="margin: 0; color: rgb(142, 22, 8);">Naturally Limitless! 🙆‍♀️</h2>
+  </header>
+    <div class="w3-display-container w3-wide bgimg3 w3-center">
+      </div>
+    </div>
+    <div id = "stranger-things">
+    <header class="w3-container w3-xlarge w3-padding-24" style="text-align: center;">
+      <div id = "stranger-things">
+        <h2 style="margin: 0; color: rgb(150, 10, 10);">Nature's Classroom! 📖🍃</h2>
+      </header>
+    <!-- Portfolio Section -->
+    <!-- Grid for photos -->
+    <div class="w3-row-padding" style="margin:0 +16px">
+        <div class="w3-half">
+            <img src="Photos\1.jpeg" style="width:100%">
+            <img src="Photos\2.jpeg" style="width:100%">
+            <img src="Photos\3.jpeg" style="width:100%">
+            <img src="Photos\4.jpeg" style="width:100%">
+        </div>
+    
+        <div class="w3-half">
+            <img src="Photos\5.jpeg" style="width:100%">
+            <img src="Photos\6.jpeg" style="width:100%">
+            <img src="Photos\7.jpeg" style="width:100%">
+            <img src="Photos\8.jpeg" style="width:100%">
+        </div>
+        <!-- End photo grid -->
+        </div>
+    <!-- End Portfolio Section -->
+  </div>
+    </div>
+    <div id="cat-section">
+        <div class="w3-content" style="max-width:1500px">
+  
+          <!-- Header -->
+          <header class="w3-container w3-xlarge w3-padding-24" style="text-align: center;">
+            <h2 style="margin: 0; color: rgb(150, 10, 10);">cat's and camPAWS... Purrfect!🐈😽</h2>
+          </header>
+       
+        
+          <!-- Photo Grid -->
+          <div class="w3-row">
+            <div class="w3-half">
+              <img src="Photos/cat1.jpeg" class="photo">
+              <img src="Photos/cat3.jpeg" class="photo">
+            </div>
+          
+            <div class="w3-half">
+              <img src="Photos/cat2.jpeg" class="photo">
+              <img src="Photos/cat4.jpeg" class="photo">
+            </div>
+          </div>
+          
+          
+        <!-- End Page Content -->
+        </div>
+      </div>
+
+
+    <!-- Footer -->
+    <footer class="w3-center w3-black w3-padding-16">
+      <p>
+        Made by
+        <a
+          href="https://github.com/Ria2102/MTC-Mediathon"
+          title="Our GitHub Repo!"
+          target="_blank"
+          class="w3-hover-text-green"
+          >Team Podium</a
+        >🏆
+      </p>
+    </footer>
+    <div class="w3-hide-small" style="margin-bottom: 32px"></div>
+    <script>
+      const textElement = document.getElementById("typewriterText");
+const text = "The Beauty of Nature 🍃";
+window.onload = function() {
+  var audio = document.getElementById("backgroundAudio");
+  audio.volume = 0.18; // Set volume (0.0 is muted, 1.0 is full volume)
+};
+function typeWriter() {
+  textElement.innerHTML = ""; // Clear the element
+  textElement.style.width = "0"; // Reset the width
+
+  setTimeout(() => {
+    textElement.innerHTML = text;
+    textElement.style.animation = "none"; // Reset animation
+    setTimeout(() => {
+      textElement.style.animation = ""; // Reapply the typing animation
+    }, 100); // A small delay to restart the typing effect
+  }, 500); // Delay before restarting
+}
+
+// Loop the animation after each full typing cycle
+setInterval(typeWriter, 5000); // Adjust time (4s) based on typing speed
+      const cursor = document.querySelector(".cursor");
+
+      document.addEventListener("mousemove", (e) => {
+        cursor.style.top = `${e.pageY - 10}px`;
+        cursor.style.left = `${e.pageX - 10}px`;
+      });
+
+      document.addEventListener("click", () => {
+        cursor.classList.add("expand");
+
+        setTimeout(() => {
+          cursor.classList.remove("expand");
+        }, 500);
+      });
+      document
+        .getElementById("toggleButton")
+        .addEventListener("click", function () {
+          const sidebar = document.getElementById("sidebar");
+          sidebar.classList.toggle("active");
+        });
+        window.addEventListener("scroll", function () {
+          const heading = document.getElementById("fadeInHeading");
+          const rect = heading.getBoundingClientRect();
+        
+          // Check if the element is in the viewport
+          if (rect.top < window.innerHeight && rect.bottom >= 0) {
+            heading.style.opacity = 1; // Set opacity to 1 to start the fade-in
+          }
+        });
+        document.addEventListener("DOMContentLoaded", function () {
+            // Options for the observer (which parts of the viewport are visible)
+            const options = {
+              root: null,
+              rootMargin: '0px',
+              threshold: 0.1
+            };
+    
+            // Callback function to execute when elements are observed
+            const callback = (entries, observer) => {
+              entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                  entry.target.classList.add('show');
+                  // Optional: Stop observing after the element has been animated
+                  observer.unobserve(entry.target);
+                }
+              });
+            };
+    
+            // Create an intersection observer
+            const observer = new IntersectionObserver(callback, options);
+    
+            // Target elements to observe
+            document.querySelectorAll('.animate-text').forEach(element => {
+              observer.observe(element);
+            });
+          });
+    </script>
+  </body>
+</html>
